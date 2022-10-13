@@ -1,0 +1,61 @@
+---
+import { getUser } from "@astro-auth/core";
+
+import splash from "./skating.png";
+import Enterprise from "../layouts/Enterprise.astro";
+
+import { getPages } from "../data/notion";
+
+const pages = await getPages();
+
+const user = getUser({ client: Astro });
+
+console.log(user);
+---
+
+<Enterprise showLogin title="RadiKS Solutions">
+  <div class="flex gap-10">
+    <img class="my-4 w-52" src={splash} />
+    <div class="py-4">
+      <i>
+        quality...<br />
+        service...<br />style
+      </i>
+      <br />
+      <br />
+      Quotes E-Mail: radiks@aol.com
+      <br />
+      <br />
+      Phone Number: 15554206969
+    </div>
+  </div>
+  <hr class="my-3 border border-amber-500" />
+  <div class="text-xs">
+    Last Updated:&nbsp;<b>June 1992</b>
+  </div>
+  <hr class="my-2 w-10 border border-black" />
+  <marquee
+    >WE ARE NOT RESPONSIBLE FOR LOST PACKAGES DUE TO DEATH OF SERVICE
+    FULFILLMENT CONTRACTORS -- DO NOT CONTACT RADIKS REGARDING OOPSIES WITH
+    SERVICE FULFILLMENT CONTRACTORS, DIAL YOUR LOCAL TRAUMA CARE CENTER AND
+    INVOICE US -- COMMUNITY OUTREACH YOUTH SKATE-OFF TOURNAMENT SATURDAY, BYOB
+    -- READ OUR BLOG FOR UPDATES ON RADIKS EDUCATIONAL SOFT-PRODUCTS SUCH AS
+    "RADIKS SIM"</marquee
+  >
+  <hr class="my-3 border border-amber-500" />
+  <div class="text-center">RadiKS Training Simulator Devlog</div>
+  {
+    pages.map(({ title, subtitle, slugLink, formattedCreatedTime }) => (
+      <a href={slugLink}>
+        <div class="my-5 p-2 border border-amber-500">
+          <div class="text-xs flex justify-between">
+            <div>{subtitle}</div>
+            {formattedCreatedTime}
+          </div>
+          <hr class="my-2 w-10 border border-black" />
+          <b class="text-md">{title}</b>
+        </div>{" "}
+      </a>
+    ))
+  }
+</Enterprise>

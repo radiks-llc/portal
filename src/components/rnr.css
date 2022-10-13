@@ -1,0 +1,11 @@
+.rnr-paragraph {
+    @apply my-4;
+}
+
+.rnr-todo {
+    @apply my-4;
+}
+
+.rnr-quote {
+    @apply my-4;
+}

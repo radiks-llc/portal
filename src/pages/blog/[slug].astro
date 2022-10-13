@@ -1,0 +1,34 @@
+---
+import Enterprise from "../../layouts/Enterprise.astro";
+import NotionPage from "../../components/NotionPage";
+
+export async function getStaticPaths() {
+  const { getPages } = await import("../../data/notion");
+  const pages = await getPages();
+  // If I spread in the params below I get a 404
+  return pages.map(({ slug }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+
+const { getPages } = await import("../../data/notion");
+
+const { title, subtitle, formattedCreatedTime, blocks } = (
+  await getPages()
+).find(({ slug: otherSlug }) => otherSlug === slug);
+---
+
+<Enterprise title="RadiKS Solutions">
+  <hr class="my-3 border border-amber-500" />
+  <div class="my-8">
+    <div class="flex justify-between">
+      <div>RadiKS Sim Blog</div><h2 class="text-sm">
+        <b>{formattedCreatedTime}</b>
+      </h2>
+    </div>
+    <h1 class="text-2xl">{title}</h1>
+    <i class="text-md">"{subtitle}"</i>
+  </div>
+  <div class="text-sm">written by: mitch</div>
+  <NotionPage blocks={blocks} />
+</Enterprise>

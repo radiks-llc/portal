@@ -1,0 +1,35 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<style>
+  html {
+    font-size: 20px;
+    color: #f8f0e3;
+  }
+  * {
+    text-shadow: 0.05rem 0.05rem #aa0000, -0.05rem 0.05rem #00aa00,
+      -0.05rem -0.05rem #0000aa;
+  }
+</style>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+
+<body class="bg-black font-serif">
+  <slot />
+</body>

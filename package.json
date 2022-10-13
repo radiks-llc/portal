@@ -1,0 +1,31 @@
+{
+  "name": "@example/basics",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@9gustin/react-notion-render": "^3.0.0",
+    "@astro-auth/client": "^1.0.5",
+    "@astro-auth/core": "^1.0.12",
+    "@astro-auth/providers": "^1.0.6",
+    "@astrojs/react": "^1.1.2",
+    "@astrojs/tailwind": "^1.0.0",
+    "@headlessui/react": "^1.7.3",
+    "@react-three/fiber": "^8.7.2",
+    "@react-three/postprocessing": "^2.6.2",
+    "astro": "^1.2.1",
+    "better-sqlite3": "^7.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@notionhq/client": "^2.2.0",
+    "ts-node": "^10.9.1"
+  }
+}
