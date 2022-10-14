@@ -2,20 +2,13 @@
 import Enterprise from "../../layouts/Enterprise.astro";
 import NotionPage from "../../components/NotionPage";
 
-export async function getStaticPaths() {
-  const { getPages } = await import("../../data/notion");
-  const pages = await getPages();
-  // If I spread in the params below I get a 404
-  return pages.map(({ slug }) => ({ params: { slug } }));
-}
-
 const { slug } = Astro.params;
 
-const { getPages } = await import("../../data/notion");
+import { pages } from "../../data/notion";
 
-const { title, subtitle, formattedCreatedTime, blocks } = (
-  await getPages()
-).find(({ slug: otherSlug }) => otherSlug === slug);
+const { title, subtitle, formattedCreatedTime, blocks } = pages.find(
+  ({ slug: otherSlug }) => otherSlug === slug
+);
 ---
 
 <Enterprise title="RadiKS Solutions">

@@ -1107,7 +1107,7 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/node-fetch@^2.5.10":
+"@types/node-fetch@^2.5.10", "@types/node-fetch@^2.6.2":
   "integrity" "sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A=="
   "resolved" "https://registry.npmjs.org/@types/node-fetch/-/node-fetch-2.6.2.tgz"
   "version" "2.6.2"
@@ -4552,7 +4552,7 @@
     "potpack" "^1.0.1"
     "zstddec" "^0.0.2"
 
-"three@^0.144.0", "three@>= 0.125.0 < 0.145.0", "three@>=0.122.0", "three@>=0.133", "three@>=0.136.0", "three@>=0.141.0":
+"three@>= 0.125.0 < 0.145.0", "three@>=0.122.0", "three@>=0.133", "three@>=0.136.0", "three@>=0.141.0":
   "integrity" "sha512-R8AXPuqfjfRJKkYoTQcTK7A6i3AdO9++2n8ubya/GTU+fEHhYKu1ZooRSCPkx69jbnzT7dD/xEo6eROQTt2lJw=="
   "resolved" "https://registry.npmjs.org/three/-/three-0.144.0.tgz"
   "version" "0.144.0"

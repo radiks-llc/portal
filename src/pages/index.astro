@@ -1,16 +1,11 @@
 ---
+import { pages } from "../data/notion";
 import { getUser } from "@astro-auth/core";
 
 import splash from "./skating.png";
 import Enterprise from "../layouts/Enterprise.astro";
 
-import { getPages } from "../data/notion";
-
-const pages = await getPages();
-
 const user = getUser({ client: Astro });
-
-console.log(user);
 ---
 
 <Enterprise showLogin title="RadiKS Solutions">
