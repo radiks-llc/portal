@@ -4,6 +4,8 @@ import { NotionBlock } from "@9gustin/react-notion-render";
 import { writeFile, mkdir } from "fs/promises";
 import { Client } from "@notionhq/client";
 import {
+  BlockObjectResponse,
+  ChildPageBlockObjectResponse,
   ListBlockChildrenResponse,
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
@@ -27,6 +29,14 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+export type VotePage = {
+  title: string;
+  status: string;
+  createdTime: string;
+  formattedCreatedTime: string;
+  blocks: NotionBlock[];
+};
+
 export type NotionPage = {
   title: string;
   subtitle: string;
@@ -35,6 +45,7 @@ export type NotionPage = {
   createdTime: string;
   formattedCreatedTime: string;
   blocks: NotionBlock[];
+  votePages: VotePage[];
 };
 
 const monthNames = [
@@ -63,6 +74,7 @@ export const getBlocks = async (blockId: string) => {
       block_id: blockId,
       // I'm sorry
     })) as ListBlockChildrenResponse;
+
     blocks.push(...results);
     if (!next_cursor) {
       break;
@@ -72,17 +84,42 @@ export const getBlocks = async (blockId: string) => {
   return blocks as NotionBlock[];
 };
 
+const toVotePage = async (
+  pageObject: PageObjectResponse
+): Promise<VotePage> => {
+  const name = pageObject.properties.Name;
+  if (!name) throw new Error("No name in page");
+  if (name.type !== "title") throw new Error("No title in page");
+  const title = name.title[0]!;
+  if (title.type !== "text") throw new Error("Expected title to be plain text");
+  const status = pageObject.properties.Status;
+  if (!status) throw new Error("No status in page");
+  if (status.type !== "select") throw new Error("No status in page");
+
+  const createdTime = new Date(pageObject.created_time);
+  const formattedCreatedTime = `${
+    dayNames[createdTime.getDay()]
+  }, ${createdTime.getDate()} ${monthNames[createdTime.getMonth()]}`;
+
+  return {
+    title: title.text.content,
+    createdTime: pageObject.created_time,
+    status: status.select?.name ?? "Closed",
+    formattedCreatedTime,
+    blocks: await getBlocks(pageObject.id),
+  };
+};
 const toNotionPage = async (
   pageObject: PageObjectResponse
 ): Promise<NotionPage> => {
   const name = pageObject.properties.Name;
-  if (name === null) throw new Error("No name in page");
+  if (!name) throw new Error("No name in page");
   if (name.type !== "title") throw new Error("No title in page");
   const title = name.title[0]!;
   if (title.type !== "text") throw new Error("Expected title to be plain text");
 
   const subtitle = pageObject.properties.Subtitle;
-  if (subtitle === null) throw new Error("No subtitle in page");
+  if (!subtitle) throw new Error("No subtitle in page");
   if (subtitle.type !== "rich_text") throw new Error("No text in subtitle");
   const subtitleText = subtitle.rich_text[0]!;
   if (subtitleText.type !== "text")
@@ -100,6 +137,26 @@ const toNotionPage = async (
     dayNames[createdTime.getDay()]
   }, ${createdTime.getDate()} ${monthNames[createdTime.getMonth()]}`;
 
+  let votePages: VotePage[] = [];
+  if (pageObject.properties.Votes) {
+    const vote = pageObject.properties.Votes;
+    if (vote === null) throw new Error("No slug in page");
+    if (vote.type !== "relation")
+      throw new Error("Expected vote to be relation");
+
+    votePages = await Promise.all(
+      vote.relation.map(async (item) => {
+        const maybeResponse = await notion.pages.retrieve({
+          page_id: item.id,
+        });
+        if ((maybeResponse as PageObjectResponse).properties === undefined)
+          throw new Error("Didn't expect partial response");
+        const response = maybeResponse as PageObjectResponse;
+        return toVotePage(response);
+      })
+    );
+  }
+
   return {
     title: title.text.content,
     subtitle: subtitleText.text.content,
@@ -108,6 +165,7 @@ const toNotionPage = async (
     createdTime: pageObject.created_time,
     formattedCreatedTime,
     blocks: await getBlocks(pageObject.id),
+    votePages,
   };
 };
 

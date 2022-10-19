@@ -6,7 +6,7 @@ const { slug } = Astro.params;
 
 import { pages } from "../../data/notion";
 
-const { title, subtitle, formattedCreatedTime, blocks } = pages.find(
+const { title, subtitle, formattedCreatedTime, votePages, blocks } = pages.find(
   ({ slug: otherSlug }) => otherSlug === slug
 );
 ---
@@ -24,4 +24,13 @@ const { title, subtitle, formattedCreatedTime, blocks } = pages.find(
   </div>
   <div class="text-sm">written by: mitch</div>
   <NotionPage blocks={blocks} />
+  {
+    votePages.map(({ title, blocks }) => (
+      <div class="my-12 border border-amber-500 p-5">
+        <b class="text-xs">SHAREHOLDER VOTING</b>
+        <h1 class="text-2xl">{title}</h1>
+        <NotionPage blocks={blocks} />
+      </div>
+    ))
+  }
 </Enterprise>

@@ -1,8 +1,28 @@
 ---
 import LoginPage from "../../components/forms/LoginPage";
 import Enterprise from "../../layouts/Enterprise.astro";
+
+import { getUser } from "@astro-auth/core";
+const user = getUser({ client: Astro });
 ---
 
 <Enterprise title="RadiKS Solutions">
-  <LoginPage client:only="react" />
+  {
+    user ? (
+      <div>
+        <div>
+          Hello <i>{user.email}</i>. You're already logged in.
+        </div>
+
+        <a
+          class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+          href="/"
+        >
+          Return Home
+        </a>
+      </div>
+    ) : (
+      <LoginPage client:only="react" />
+    )
+  }
 </Enterprise>

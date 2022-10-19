@@ -1,15 +1,6 @@
 import { NotionBlock } from "@9gustin/react-notion-render";
 import pagesSrc from "../../scripts/data/pages.json";
+import type { NotionPage } from "../../scripts/fetch-posts-notion";
 
-export type NotionPage = {
-  title: string;
-  subtitle: string;
-  slug: string;
-  slugLink: string;
-  createdTime: string;
-  formattedCreatedTime: string;
-  blocks: NotionBlock[];
-};
-
-const pages = pagesSrc as NotionPage[];
+const pages = pagesSrc as unknown as NotionPage[];
 export { pages };

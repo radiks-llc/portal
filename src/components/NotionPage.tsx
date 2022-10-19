@@ -8,7 +8,6 @@ import {
 import { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
 
 const ToDo = ({
-  checked,
   config: {
     block: { items },
   },
