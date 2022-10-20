@@ -7,6 +7,17 @@ import {
 } from "@9gustin/react-notion-render";
 import { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
 
+const Image = ({ media: { src, alt } }) => {
+  return (
+    <div className="my-10">
+      <div className="flex flex-col items-center mx-auto">
+        <img className="w-96" src={src} alt={alt}></img>
+        <div className="text-xs">{alt}</div>
+      </div>
+    </div>
+  );
+};
+
 const ToDo = ({
   config: {
     block: { items },
@@ -37,6 +48,7 @@ export default ({ blocks }: { blocks: NotionBlock[] }) => {
       <Render
         blockComponentsMapper={{
           to_do: withContentValidation(ToDo),
+          image: withContentValidation(Image),
         }}
         blocks={blocks}
         classNames

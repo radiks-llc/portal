@@ -1,5 +1,20 @@
-.rnr-paragraph {
+.rnr-heading_1, .rnr-heading_2, .rnr-heading_3,.rnr-heading_4 {
+   @apply mt-10; 
+}
+
+.rnr-numbered_list_item, .rnr-bulleted_list_item, .rnr-paragraph {
+    @apply text-sm;
     @apply my-4;
+    @apply leading-8;
+}
+
+.rnr-paragraph {
+    @apply indent-5;
+}
+
+.title {
+    @apply text-xl;
+    @apply font-bold;
 }
 
 .rnr-todo {

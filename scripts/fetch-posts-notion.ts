@@ -4,8 +4,6 @@ import { NotionBlock } from "@9gustin/react-notion-render";
 import { writeFile, mkdir } from "fs/promises";
 import { Client } from "@notionhq/client";
 import {
-  BlockObjectResponse,
-  ChildPageBlockObjectResponse,
   ListBlockChildrenResponse,
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
@@ -22,7 +20,7 @@ const hashString = (str: string) => {
     hash = (hash << 5) - hash + chr;
     hash |= 0;
   }
-  return hash;
+  return Math.abs(hash);
 };
 
 const notion = new Client({
@@ -31,6 +29,7 @@ const notion = new Client({
 
 export type VotePage = {
   title: string;
+  subtitle: string;
   status: string;
   createdTime: string;
   formattedCreatedTime: string;
@@ -96,6 +95,13 @@ const toVotePage = async (
   if (!status) throw new Error("No status in page");
   if (status.type !== "select") throw new Error("No status in page");
 
+  const subtitle = pageObject.properties.Subtitle;
+  if (!subtitle) throw new Error("No subtitle in page");
+  if (subtitle.type !== "rich_text") throw new Error("No text in subtitle");
+  const subtitleText = subtitle.rich_text[0]!;
+  if (subtitleText.type !== "text")
+    throw new Error("Expected subtitle to be plain text");
+
   const createdTime = new Date(pageObject.created_time);
   const formattedCreatedTime = `${
     dayNames[createdTime.getDay()]
@@ -103,6 +109,7 @@ const toVotePage = async (
 
   return {
     title: title.text.content,
+    subtitle: subtitleText.text.content,
     createdTime: pageObject.created_time,
     status: status.select?.name ?? "Closed",
     formattedCreatedTime,
@@ -189,10 +196,11 @@ const fetchPages = async () => {
 };
 
 const handleAttachment = async (url: string) => {
-  const splits = url.split(".");
-  const ext = splits[splits.length - 1];
+  const dotSeparated = url.split(".");
+  const ext = dotSeparated[dotSeparated.length - 1].split("?")[0];
 
-  const newUrl = `/wp-content/${hashString(url)}.${ext}`;
+  const urlPrefix = url.split("?")[0];
+  const newUrl = `/wp-content/${hashString(urlPrefix)}.${ext}`;
   await fetch(url)
     .then((x) => x.arrayBuffer())
     .then((x) => writeFile(`../public${newUrl}`, Buffer.from(x)));

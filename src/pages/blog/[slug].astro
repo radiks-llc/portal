@@ -25,12 +25,16 @@ const { title, subtitle, formattedCreatedTime, votePages, blocks } = pages.find(
   <div class="text-sm">written by: mitch</div>
   <NotionPage blocks={blocks} />
   {
-    votePages.map(({ title, blocks }) => (
+    votePages.map(({ title, subtitle, blocks }) => (
       <div class="my-12 border border-amber-500 p-5">
         <b class="text-xs">SHAREHOLDER VOTING</b>
         <h1 class="text-2xl">{title}</h1>
+        <h1 class="text-xl">{subtitle}</h1>
         <NotionPage blocks={blocks} />
       </div>
     ))
   }
+  Thank you.
+  <br />
+  Sincerely, The RadiKS Customer Satisfaction Team and Brigade
 </Enterprise>
