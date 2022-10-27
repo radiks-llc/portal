@@ -1,0 +1,87 @@
+---
+import Enterprise from "../../../layouts/Enterprise.astro";
+import NotionPage from "../../../components/notion/NotionPage";
+import { getUser } from "@astro-auth/core";
+import { increaseVotes, getVotes } from "../../../data/db";
+
+import { pages } from "../../../data/notion";
+import { VoteNotionPage } from "../../../components/notion/VoteNotionPage";
+
+const user = getUser({ server: Astro.request });
+const { slug } = Astro.params;
+
+let votes = null;
+if (Astro.request.method === "GET") {
+  if (typeof slug !== "string") throw new Error("Not a string.");
+
+  const voteList = getVotes(slug);
+
+  votes = [];
+
+  for (const vote of voteList) {
+    let prev = votes[vote.option] ?? 0;
+    votes[vote.option] = prev + 1;
+  }
+}
+
+let selectedOption = null;
+const request = Astro.request;
+if (Astro.request.method === "POST") {
+  const parsedData = new URLSearchParams(await request.text());
+
+  if (typeof slug !== "string") throw new Error("Not a string.");
+
+  if (!user) {
+    return new Response("Unauthorized.", {
+      status: 401,
+    });
+  }
+
+  const selection = parseInt(parsedData.get("vote"));
+  selectedOption = selection;
+  increaseVotes(slug, user.email, selection);
+}
+
+const { title, subtitle, formattedCreatedTime, votePages, blocks } = pages.find(
+  ({ slug: otherSlug }) => otherSlug === slug
+);
+---
+
+<Enterprise title="RadiKS Solutions">
+  <hr class="my-3 border border-amber-500" />
+  <div class="my-8">
+    {
+      selectedOption !== null && (
+        <div class="my-5 p-5 flex justify-center border border-amber-500">
+          Option {selectedOption + 1} selected. Thank you for your submission.
+        </div>
+      )
+    }
+    <div class="flex justify-between">
+      <div>RadiKS Sim Blog</div><h2 class="text-sm">
+        <b>{formattedCreatedTime}</b>
+      </h2>
+    </div>
+    <h1 class="text-2xl">{title}</h1>
+    <i class="text-md">"{subtitle}"</i>
+  </div>
+  <div class="text-sm">written by: mitch</div>
+  <NotionPage blocks={blocks} />
+  {
+    votePages.map(({ title, subtitle, blocks }) => (
+      <div class="my-12 border border-amber-500 p-5">
+        <b class="text-xs">SHAREHOLDER VOTING</b>
+        <h1 class="text-2xl">{title}</h1>
+        <h1 class="text-xl">{subtitle}</h1>
+        <VoteNotionPage
+          votes={votes}
+          showVotes={user === undefined}
+          blocks={blocks}
+        />
+      </div>
+    ))
+  }
+  Thank you.
+  <br />
+  Sincerely, The RadiKS Customer Satisfaction Team and Brigade
+</Enterprise>
