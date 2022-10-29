@@ -1,11 +1,11 @@
 ---
-import Enterprise from "../../../layouts/Enterprise.astro";
-import NotionPage from "../../../components/notion/NotionPage";
+import Enterprise from "@layouts/Enterprise.astro";
+import NotionPage from "@ui/notion/NotionPage";
 import { getUser } from "@astro-auth/core";
-import { increaseVotes, getVotes } from "../../../data/db";
+import { increaseVotes, getVotes } from "@data/db";
 
-import { pages } from "../../../data/notion";
-import { VoteNotionPage } from "../../../components/notion/VoteNotionPage";
+import { pages } from "@data/notion";
+import { VoteNotionPage } from "@ui/notion/VoteNotionPage";
 
 const user = getUser({ server: Astro.request });
 const { slug } = Astro.params;

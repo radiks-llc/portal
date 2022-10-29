@@ -1,4 +1,4 @@
-import { getUserByEmail } from "../../../../data/db";
+import { getUserByEmail } from "@data/db";
 
 import AstroAuth from "@astro-auth/core";
 import { CredentialProvider } from "@astro-auth/providers";

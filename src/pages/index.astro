@@ -1,9 +1,10 @@
 ---
-import { pages } from "../data/notion";
+import { pages } from "@data/notion";
 import { getUser } from "@astro-auth/core";
 
 import splash from "./skating.png";
-import Enterprise from "../layouts/Enterprise.astro";
+import Enterprise from "@layouts/Enterprise.astro";
+import Bulletin from "@ui/displays/Bulletin.astro";
 
 const user = getUser({ client: Astro });
 ---
@@ -25,70 +26,50 @@ const user = getUser({ client: Astro });
     </div>
   </div>
   <hr class="my-3 border border-amber-500" />
-  <h1>Website bulletins</h1>
-  <div class="text-xs">
-    Last Updated:&nbsp;<b>June 1992</b>
-  </div>
-  <hr class="my-2 w-10 border border-black" />
-  <div class="flex flex-col gap-8 my-8">
-    <div class="relative mx-2 p-2 border-2 border-amber-500">
-      <svg
-        class="w-4 h-4 -top-2 -left-2 bg-white absolute color-amber-500"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 490.125 490.125"
-      >
-        <path
-          d="M300.625,5.025c-6.7-6.7-17.6-6.7-24.3,0l-72.6,72.6c-6.7,6.7-6.7,17.6,0,24.3l16.3,16.3l-40.3,40.3l-63.5-7     c-3-0.3-6-0.5-8.9-0.5c-21.7,0-42.2,8.5-57.5,23.8l-20.8,20.8c-6.7,6.7-6.7,17.6,0,24.3l108.5,108.5l-132.4,132.4     c-6.7,6.7-6.7,17.6,0,24.3c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5l132.5-132.5l108.5,108.5c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5     l20.8-20.8c17.6-17.6,26.1-41.8,23.3-66.4l-7-63.5l40.3-40.3l16.2,16.2c6.7,6.7,17.6,6.7,24.3,0l72.6-72.6c3.2-3.2,5-7.6,5-12.1     s-1.8-8.9-5-12.1L300.625,5.025z M400.425,250.025l-16.2-16.3c-6.4-6.4-17.8-6.4-24.3,0l-58.2,58.3c-3.7,3.7-5.5,8.8-4.9,14     l7.9,71.6c1.6,14.3-3.3,28.3-13.5,38.4l-8.7,8.7l-217.1-217.1l8.7-8.6c10.1-10.1,24.2-15,38.4-13.5l71.7,7.9     c5.2,0.6,10.3-1.2,14-4.9l58.2-58.2c6.7-6.7,6.7-17.6,0-24.3l-16.3-16.3l48.3-48.3l160.3,160.3L400.425,250.025z"
-        ></path>
-      </svg>
-      We are not responsible for lost packages due to death of service fulfillment
-      contractors.
+  <div class="flex flex-col sm:flex-row">
+    <div class="sm:w-56 flex flex-col">
+      <h1>Website bulletins</h1>
+      <div class="text-xs">
+        Last Updated:&nbsp;<b>June 1992</b>
+      </div>
+      <hr class="my-2 w-10 border border-black" />
+      <div class="flex flex-col gap-8 my-4">
+        <Bulletin>
+          We are not responsible for lost packages due to death of service
+          fulfillment contractors.
+        </Bulletin>
+        <Bulletin>
+          Do not contact radiks regarding oopsies with service fulfillment
+          contractors, dial your local trauma care center and invoice us
+        </Bulletin>
+        <Bulletin>
+          Community outreach youth skate-off tournament saturday, byob -- read
+          our blog for updates on radiks educational soft-products such as
+          "radiks sim"
+        </Bulletin>
+      </div>
     </div>
-    <div class="relative mx-2 p-2 border-2 border-amber-500">
-      <svg
-        class="w-4 h-4 -top-2 -left-2 bg-white absolute color-amber-500"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 490.125 490.125"
-      >
-        <path
-          d="M300.625,5.025c-6.7-6.7-17.6-6.7-24.3,0l-72.6,72.6c-6.7,6.7-6.7,17.6,0,24.3l16.3,16.3l-40.3,40.3l-63.5-7     c-3-0.3-6-0.5-8.9-0.5c-21.7,0-42.2,8.5-57.5,23.8l-20.8,20.8c-6.7,6.7-6.7,17.6,0,24.3l108.5,108.5l-132.4,132.4     c-6.7,6.7-6.7,17.6,0,24.3c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5l132.5-132.5l108.5,108.5c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5     l20.8-20.8c17.6-17.6,26.1-41.8,23.3-66.4l-7-63.5l40.3-40.3l16.2,16.2c6.7,6.7,17.6,6.7,24.3,0l72.6-72.6c3.2-3.2,5-7.6,5-12.1     s-1.8-8.9-5-12.1L300.625,5.025z M400.425,250.025l-16.2-16.3c-6.4-6.4-17.8-6.4-24.3,0l-58.2,58.3c-3.7,3.7-5.5,8.8-4.9,14     l7.9,71.6c1.6,14.3-3.3,28.3-13.5,38.4l-8.7,8.7l-217.1-217.1l8.7-8.6c10.1-10.1,24.2-15,38.4-13.5l71.7,7.9     c5.2,0.6,10.3-1.2,14-4.9l58.2-58.2c6.7-6.7,6.7-17.6,0-24.3l-16.3-16.3l48.3-48.3l160.3,160.3L400.425,250.025z"
-        ></path>
-      </svg>
-      Do not contact radiks regarding oopsies with service fulfillment contractors,
-      dial your local trauma care center and invoice us
-    </div>
-    <div class="relative mx-2 p-2 border-2 border-amber-500">
-      <svg
-        class="w-4 h-4 -top-2 -left-2 bg-white absolute color-amber-500"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 490.125 490.125"
-      >
-        <path
-          d="M300.625,5.025c-6.7-6.7-17.6-6.7-24.3,0l-72.6,72.6c-6.7,6.7-6.7,17.6,0,24.3l16.3,16.3l-40.3,40.3l-63.5-7     c-3-0.3-6-0.5-8.9-0.5c-21.7,0-42.2,8.5-57.5,23.8l-20.8,20.8c-6.7,6.7-6.7,17.6,0,24.3l108.5,108.5l-132.4,132.4     c-6.7,6.7-6.7,17.6,0,24.3c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5l132.5-132.5l108.5,108.5c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5     l20.8-20.8c17.6-17.6,26.1-41.8,23.3-66.4l-7-63.5l40.3-40.3l16.2,16.2c6.7,6.7,17.6,6.7,24.3,0l72.6-72.6c3.2-3.2,5-7.6,5-12.1     s-1.8-8.9-5-12.1L300.625,5.025z M400.425,250.025l-16.2-16.3c-6.4-6.4-17.8-6.4-24.3,0l-58.2,58.3c-3.7,3.7-5.5,8.8-4.9,14     l7.9,71.6c1.6,14.3-3.3,28.3-13.5,38.4l-8.7,8.7l-217.1-217.1l8.7-8.6c10.1-10.1,24.2-15,38.4-13.5l71.7,7.9     c5.2,0.6,10.3-1.2,14-4.9l58.2-58.2c6.7-6.7,6.7-17.6,0-24.3l-16.3-16.3l48.3-48.3l160.3,160.3L400.425,250.025z"
-        ></path>
-      </svg>
-      Community outreach youth skate-off tournament saturday, byob -- read our blog
-      for updates on radiks educational soft-products such as "radiks sim"
-    </div>
-  </div>
 
-  <hr class="my-3 border border-amber-500" />
-  <h1>RadiKS Dev-Log</h1>
-  {
-    pages.map(({ title, subtitle, slugLink, formattedCreatedTime }) => (
-      <a href={slugLink}>
-        <div class="my-5 p-2 border border-amber-500">
-          <div class="text-xs flex justify-between">
-            <div>{subtitle}</div>
-            {formattedCreatedTime}
-          </div>
-          <hr class="my-2 w-10 border border-black" />
-          <b class="text-md">{title}</b>
-        </div>{" "}
-      </a>
-    ))
-  }
+    <div class="flex flex-col">
+      <h1>RadiKS Dev-Log</h1>
+      <div class="text-xs">Keep up on company announcements</div>
+      <hr class="my-2 w-10 border border-black" />
+      <div class="m-4">
+        {
+          pages.map(({ title, subtitle, slugLink, formattedCreatedTime }) => (
+            <a href={slugLink}>
+              <div class="p-2 border-2 border-amber-500">
+                <div class="text-xs flex justify-between">
+                  <div>{subtitle}</div>
+                  {formattedCreatedTime}
+                </div>
+                <hr class="w-10 border-2  border-black" />
+                <b class="text-md">{title}</b>
+              </div>{" "}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </Enterprise>
