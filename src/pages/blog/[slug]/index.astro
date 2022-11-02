@@ -8,6 +8,7 @@ import { pages } from "@data/notion";
 import { VoteNotionPage } from "@ui/notion/VoteNotionPage";
 
 const user = getUser({ server: Astro.request });
+console.log(user);
 const { slug } = Astro.params;
 
 let votes = null;
@@ -75,7 +76,7 @@ const { title, subtitle, formattedCreatedTime, votePages, blocks } = pages.find(
         <h1 class="text-xl">{subtitle}</h1>
         <VoteNotionPage
           votes={votes}
-          showVotes={user === undefined}
+          showVotes={user !== null}
           blocks={blocks}
         />
       </div>

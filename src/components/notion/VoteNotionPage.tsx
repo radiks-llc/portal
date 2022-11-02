@@ -39,7 +39,7 @@ const NumberedListItem =
               </div>
             );
           })}
-          {!showVotes && <button type="submit">Submit</button>}
+          {showVotes && <button type="submit">Submit</button>}
         </form>
       );
     }

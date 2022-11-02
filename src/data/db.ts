@@ -42,6 +42,15 @@ export const ensureSchema = () => {
     )`
   ).run();
 
+  db.prepare(
+    `CREATE TABLE IF NOT EXISTS invites (
+        id TEXT PRIMARY KEY,
+        fromID INTEGER NOT NULL REFERENCES users(id),
+        toID INTEGER DEFAULT NULL REFERENCES users(id),
+        created_at DATETIME NOT NULL DEFAULT (datetime('now', 'localtime'))
+    )`
+  ).run();
+
   const password = import.meta.env.MITCH_PASS;
 
   const salt = bcrypt.genSaltSync(10);

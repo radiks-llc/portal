@@ -5,12 +5,10 @@ import { getUser } from "@astro-auth/core";
 import splash from "./skating.png";
 import Enterprise from "@layouts/Enterprise.astro";
 import Bulletin from "@ui/displays/Bulletin.astro";
-
-const user = getUser({ client: Astro });
 ---
 
 <Enterprise showLogin title="RadiKS Solutions">
-  <div class="flex gap-10">
+  <div class="flex items-center flex-col sm:flex-row gap-10">
     <img class="my-4 w-52" src={splash} />
     <div class="py-4">
       <i>
@@ -35,17 +33,16 @@ const user = getUser({ client: Astro });
       <hr class="my-2 w-10 border border-black" />
       <div class="flex flex-col gap-8 my-4">
         <Bulletin>
+          Community outreach youth skate-off tournament saturday, byob -- read
+          our blog for updates on radiks educational soft-products
+        </Bulletin>
+        <Bulletin>
           We are not responsible for lost packages due to death of service
           fulfillment contractors.
         </Bulletin>
         <Bulletin>
           Do not contact radiks regarding oopsies with service fulfillment
           contractors, dial your local trauma care center and invoice us
-        </Bulletin>
-        <Bulletin>
-          Community outreach youth skate-off tournament saturday, byob -- read
-          our blog for updates on radiks educational soft-products such as
-          "radiks sim"
         </Bulletin>
       </div>
     </div>
@@ -54,7 +51,7 @@ const user = getUser({ client: Astro });
       <h1>RadiKS Dev-Log</h1>
       <div class="text-xs">Keep up on company announcements</div>
       <hr class="my-2 w-10 border border-black" />
-      <div class="m-4">
+      <div class="flex flex-col my-4">
         {
           pages.map(({ title, subtitle, slugLink, formattedCreatedTime }) => (
             <a href={slugLink}>
@@ -65,7 +62,7 @@ const user = getUser({ client: Astro });
                 </div>
                 <hr class="w-10 border-2  border-black" />
                 <b class="text-md">{title}</b>
-              </div>{" "}
+              </div>
             </a>
           ))
         }
