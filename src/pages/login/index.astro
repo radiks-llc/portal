@@ -8,6 +8,6 @@ const user = getUser({ client: Astro });
 import Profile from "./profile.astro";
 ---
 
-<Enterprise title="RadiKS Solutions">
+<Enterprise showLogin={false} title="RadiKS Solutions">
   {user ? <Profile /> : <LoginPage client:only="react" />}
 </Enterprise>

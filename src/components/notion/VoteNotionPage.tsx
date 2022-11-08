@@ -7,19 +7,17 @@ import { DropedProps } from "@9gustin/react-notion-render/dist/hoc/withContentVa
 import NotionPage from "./NotionPage";
 
 const NumberedListItem =
-  (votes: number[], showVotes: boolean) =>
+  (getIndex: () => number, votes: number[], showVotes: boolean) =>
   ({ config }: DropedProps) => {
     if (config.block.notionType === "numbered_list_item") {
-      const options = config.block.items
-        .map(({ content: { text } }) => text.map(({ text }) => text))
-        .flat();
+      const options = config.block.items.map(({ content: { text } }) =>
+        text.map(({ text }) => <div>{text.content}</div>)
+      );
       return (
-        <form method="post">
+        <div>
           <hr className="mb-5"></hr>
-          {options.map((text, index) => {
-            const lines = text.content
-              .split("\n")
-              .map((text) => <div>{text}</div>);
+          {options.map((text) => {
+            const index = getIndex();
             return (
               <div className="my-4 sm:flex items-start">
                 {showVotes ? (
@@ -35,12 +33,11 @@ const NumberedListItem =
                     {votes[index] ?? 0} votes
                   </div>
                 )}
-                <label htmlFor={`${index}`}>{lines}</label>
+                <label htmlFor={`${index}`}>{text}</label>
               </div>
             );
           })}
-          {showVotes && <button type="submit">Submit</button>}
-        </form>
+        </div>
       );
     }
     throw new Error("What the fuck");
@@ -57,15 +54,27 @@ export const VoteNotionPage = ({
   votes: number[];
   showVotes: boolean;
 }) => {
+  let voteOption = 0;
+  const getIndex = () => (voteOption += 1);
   return (
-    <NotionPage
-      blockComponentsMapper={{
-        numbered_list_item: withContentValidation(
-          NumberedListItem(votes, showVotes)
-        ),
-        ...blockComponentsMapper,
-      }}
-      blocks={blocks}
-    />
+    <form method="post">
+      <NotionPage
+        blockComponentsMapper={{
+          numbered_list_item: withContentValidation(
+            NumberedListItem(getIndex, votes, showVotes)
+          ),
+          ...blockComponentsMapper,
+        }}
+        blocks={blocks}
+      />
+      {showVotes && (
+        <button
+          className="py-1 px-2 bg-gray-200 border-l-gray-500 border-b-gray-500 border-t-gray-100 border-r-gray-100 border-2 hover:bg-gray-300 active:bg-gray-400 active:border-l-gray-100 active:border-b-gray-100 active:border-t-gray-500 active:border-r-gray-500"
+          type="submit"
+        >
+          Submit
+        </button>
+      )}
+    </form>
   );
 };

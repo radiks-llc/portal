@@ -5,7 +5,7 @@ export interface Props {
   showLogin?: boolean;
 }
 
-const { title, showLogin } = Astro.props;
+const { title, showLogin = true } = Astro.props;
 import { getUser } from "@astro-auth/core";
 const user = getUser({ client: Astro });
 ---
@@ -34,10 +34,18 @@ const user = getUser({ client: Astro });
     <div class="flex justify-between">
       <a href="/"><img class="my-2 w-24" src={logo} /></a>
       {
-        user ? (
-          <div class="my-auto">Hello, Shareholder.</div>
-        ) : (
-          showLogin && (
+        showLogin &&
+          (user ? (
+            <div class="my-auto flex gap-4">
+              Hello, Shareholder #{user.id}.
+              <a
+                href="/login"
+                class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+              >
+                Visit profile.
+              </a>
+            </div>
+          ) : (
             <div class="my-auto">
               <a
                 href="/login/"
@@ -46,12 +54,9 @@ const user = getUser({ client: Astro });
                 Shareholder Login
               </a>
             </div>
-          )
-        )
+          ))
       }
     </div>
-    <div class="text-lg">Radi Kourier Systems.</div>
-    <i>We deliver at the speed of rad!</i>
     <div class="mt-4">
       <slot />
     </div>

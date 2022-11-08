@@ -1,6 +1,5 @@
 ---
 import { pages } from "@data/notion";
-import { getUser } from "@astro-auth/core";
 
 import splash from "./skating.png";
 import Enterprise from "@layouts/Enterprise.astro";
@@ -10,27 +9,26 @@ import Bulletin from "@ui/displays/Bulletin.astro";
 <Enterprise showLogin title="RadiKS Solutions">
   <div class="flex items-center flex-col sm:flex-row gap-10">
     <img class="my-4 w-52" src={splash} />
-    <div class="py-4">
-      <i>
-        quality...<br />
-        service...<br />style
-      </i>
-      <br />
-      <br />
-      Quotes E-Mail: radiks@aol.com
-      <br />
-      <br />
-      Phone Number: 15554206969
+    <div class="">
+      RADI KOURIER SYSTEMS LIMITED
+      <div class="flex flex-col gap-2 text-2xl my-4">
+        <i
+          >American Delivery as a Service provider allowing users to book
+          Kouriers to move packages across cities "At the Speed of Rad!".</i
+        >
+      </div>
+      <div class="text-sm">Quotes E-Mail: radiks@aol.com</div>
+      <div class="text-sm">Phone Number: 15554206969</div>
     </div>
   </div>
   <hr class="my-3 border border-amber-500" />
-  <div class="flex flex-col sm:flex-row">
+  <div class="flex flex-col-reverse gap-16 mt-8 sm:flex-row-reverse">
     <div class="sm:w-56 flex flex-col">
       <h1>Website bulletins</h1>
       <div class="text-xs">
         Last Updated:&nbsp;<b>June 1992</b>
       </div>
-      <hr class="my-2 w-10 border border-black" />
+      <hr class="my-2 w-10 border-t-2 border-black" />
       <div class="flex flex-col gap-8 my-4">
         <Bulletin>
           Community outreach youth skate-off tournament saturday, byob -- read
@@ -50,17 +48,17 @@ import Bulletin from "@ui/displays/Bulletin.astro";
     <div class="flex flex-col">
       <h1>RadiKS Dev-Log</h1>
       <div class="text-xs">Keep up on company announcements</div>
-      <hr class="my-2 w-10 border border-black" />
+      <hr class="my-2 w-10 border-t-2 border-black" />
       <div class="flex flex-col my-4">
         {
           pages.map(({ title, subtitle, slugLink, formattedCreatedTime }) => (
             <a href={slugLink}>
-              <div class="p-2 border-2 border-amber-500">
-                <div class="text-xs flex justify-between">
+              <div class="p-2">
+                <div class="text-xs gap-2 flex justify-between">
                   <div>{subtitle}</div>
-                  {formattedCreatedTime}
+                  <i>{formattedCreatedTime}</i>
                 </div>
-                <hr class="w-10 border-2  border-black" />
+                <hr class="w-10 border-t-2 border-black" />
                 <b class="text-md">{title}</b>
               </div>
             </a>

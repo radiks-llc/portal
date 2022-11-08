@@ -1544,6 +1544,11 @@
   "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001416.tgz"
   "version" "1.0.30001416"
 
+"canvas-confetti@^1.6.0":
+  "integrity" "sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA=="
+  "resolved" "https://registry.npmjs.org/canvas-confetti/-/canvas-confetti-1.6.0.tgz"
+  "version" "1.6.0"
+
 "ccount@^2.0.0":
   "integrity" "sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg=="
   "resolved" "https://registry.npmjs.org/ccount/-/ccount-2.0.1.tgz"

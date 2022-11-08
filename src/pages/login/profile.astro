@@ -1,28 +1,143 @@
 ---
+import {
+  inviteUserByEmail,
+  getInvitations,
+  cancelInviteByEmail,
+} from "@data/db";
 import { getUser } from "@astro-auth/core";
+import CopyToClipboard from "@ui/displays/CopyToClipboard";
+import Signout from "@ui/displays/Signout";
+
 const user = getUser({ client: Astro });
+
+if (!user) {
+  return new Response("Unauthorized.", {
+    status: 401,
+  });
+}
+
+enum FORM_TYPE {
+  NEW_INVITE = "invite",
+  CANCEL_INVITE = "cancel",
+}
+
+const request = Astro.request;
+
+const handlePOST = async () => {
+  if (!user) {
+    return {
+      message: "Unauthorized",
+    };
+  }
+
+  const url = new URL(Astro.request.url);
+  const parsedData = new URLSearchParams(await request.text());
+
+  const formType = url.searchParams.get("type");
+  const email = parsedData.get("email");
+
+  if (!email || email.length === 0) {
+    return {
+      message: "Email is empty.",
+    };
+  }
+
+  if (email === user.email) {
+    return {
+      message: "You cannot invite yourself.",
+    };
+  }
+
+  switch (formType) {
+    case FORM_TYPE.NEW_INVITE:
+      console.log(formType);
+      const invitations = getInvitations(user.id);
+      if ((invitations || []).length >= 10) {
+        return {
+          message: "You have reached your invite limit (10).",
+        };
+      }
+
+      inviteUserByEmail(user.id, email);
+      break;
+    case FORM_TYPE.CANCEL_INVITE:
+      cancelInviteByEmail(user.id, email);
+      break;
+    default:
+      return {
+        message: "Unknown form.",
+      };
+  }
+};
+
+let error = null;
+if (Astro.request.method === "POST") {
+  error = await handlePOST();
+}
+
+const invitations = getInvitations(user.id);
 ---
 
 <div>
-  <div>
+  <div class="my-6">
     Hello Shareholder <b>{user.email}</b>.
   </div>
 
-  <a
-    class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
-    href="/"
-  >
-    Return Home
-  </a>
-
   <div class="flex flex-col gap-2 my-6">
-    <h1>Invites</h1>
-    <form class="flex gap-4" method="POST">
+    <h1 class="font-bold">Your Invitations</h1>
+    <hr class="mb-4" />
+    {error && <div class="text-red-500">ERROR: {error.message}</div>}
+    {
+      invitations.map(({ id, email, to_id }) => (
+        <form
+          class="flex justify-between gap-4"
+          method="POST"
+          action="?type=cancel"
+        >
+          <input
+            name="email"
+            class="flex-1 py-1 px-2 border-l-gray-500 border-b-gray-500 border-t-gray-100 border-r-gray-100 border-2 active:border-l-gray-100 active:border-b-gray-100 active:border-t-gray-500 active:border-r-gray-500"
+            placeholder="e-mail"
+            value={email}
+          />
+
+          {!to_id && <CopyToClipboard client:only="react" path={`/i/${id}`} />}
+          {!to_id && (
+            <button
+              class="py-1 px-2 bg-gray-200 border-l-gray-500 border-b-gray-500 border-t-gray-100 border-r-gray-100 border-2 hover:bg-gray-300 active:bg-gray-400 active:border-l-gray-100 active:border-b-gray-100 active:border-t-gray-500 active:border-r-gray-500"
+              type="submit"
+            >
+              Cancel
+            </button>
+          )}
+        </form>
+      ))
+    }
+
+    <form
+      class="flex justify-between gap-4"
+      method="POST"
+      action="?type=invite"
+    >
       <input
-        class="py-1 px-2 border-l-gray-500 border-b-gray-500 border-t-gray-100 border-r-gray-100 border-2 active:border-l-gray-100 active:border-b-gray-100 active:border-t-gray-500 active:border-r-gray-500"
+        name="email"
+        class="flex-1 py-1 px-2 border-l-gray-500 border-b-gray-500 border-t-gray-100 border-r-gray-100 border-2 active:border-l-gray-100 active:border-b-gray-100 active:border-t-gray-500 active:border-r-gray-500"
         placeholder="e-mail"
       />
-      <button type="submit">Invite</button>
+      <button
+        class="py-1 px-2 bg-gray-200 border-l-gray-500 border-b-gray-500 border-t-gray-100 border-r-gray-100 border-2 hover:bg-gray-300 active:bg-gray-400 active:border-l-gray-100 active:border-b-gray-100 active:border-t-gray-500 active:border-r-gray-500"
+        type="submit">Invite</button
+      >
     </form>
+    <div>
+      <Signout client:only="react" />
+    </div>
+
+    <a
+      class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+      href="/"
+    >
+      Return Home
+    </a>
   </div>
 </div>

@@ -13,7 +13,7 @@ export const all = AstroAuth({
         if (!user) return null;
 
         if (bcrypt.compareSync(password, user.password)) {
-          return { email };
+          return { id: user.id, email };
         }
 
         return null;

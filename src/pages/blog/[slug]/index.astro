@@ -6,9 +6,9 @@ import { increaseVotes, getVotes } from "@data/db";
 
 import { pages } from "@data/notion";
 import { VoteNotionPage } from "@ui/notion/VoteNotionPage";
+import Confetti from "@ui/Confetti";
 
 const user = getUser({ server: Astro.request });
-console.log(user);
 const { slug } = Astro.params;
 
 let votes = null;
@@ -49,17 +49,21 @@ const { title, subtitle, formattedCreatedTime, votePages, blocks } = pages.find(
 ---
 
 <Enterprise title="RadiKS Solutions">
-  <hr class="my-3 border border-amber-500" />
+  <hr class="my-3 border-t-2 border-amber-500" />
   <div class="my-8">
     {
       selectedOption !== null && (
-        <div class="my-5 p-5 flex justify-center border border-amber-500">
-          Option {selectedOption + 1} selected. Thank you for your submission.
+        <div class="my-5 p-5 flex flex-col justify-center items-center border border-amber-500">
+          <div>
+            Option {selectedOption + 1} selected. Thank you for your submission.
+          </div>
+          <Confetti client:only="react" />
         </div>
       )
     }
     <div class="flex justify-between">
-      <div>RadiKS Sim Blog</div><h2 class="text-sm">
+      <div>The RadiKS Training Simulator System Blog</div>
+      <h2 class="text-sm">
         <b>{formattedCreatedTime}</b>
       </h2>
     </div>
