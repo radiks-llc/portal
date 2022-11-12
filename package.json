@@ -10,17 +10,18 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@notionhq/client": "^2.2.0",
     "@9gustin/react-notion-render": "^3.0.0",
     "@astro-auth/client": "^1.0.5",
     "@astro-auth/core": "^1.0.12",
     "@astro-auth/providers": "^1.0.6",
+    "@astrojs/node": "^3.0.0",
     "@astrojs/react": "^1.1.2",
     "@astrojs/tailwind": "^1.0.0",
     "@headlessui/react": "^1.7.3",
     "@react-three/fiber": "^8.7.2",
     "@react-three/postprocessing": "^2.6.2",
-    "@types/node-fetch": "^2.6.2",
-    "astro": "^1.5.2",
+    "astro": "^1.6.7",
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^7.6.2",
     "canvas-confetti": "^1.6.0",
@@ -28,7 +29,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@notionhq/client": "^2.2.0",
-    "ts-node": "^10.9.1"
+    "dotenv": "^16.0.3",
+    "ts-node": "^10.9.1",
+    "@types/node-fetch": "^2.6.2"
   }
 }

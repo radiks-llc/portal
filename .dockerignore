@@ -1,0 +1,8 @@
+dst
+node_modules
+*.db
+*.gif
+justfile
+*.toml
+*.md
+*.env

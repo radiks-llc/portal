@@ -105,7 +105,7 @@ export const ensureSchema = () => {
     )`
   ).run();
 
-  const password = import.meta.env.MITCH_PASS;
+  const password = import.meta.env.MITCH_PASS ?? "mitch";
 
   db.prepare(
     "INSERT OR IGNORE INTO users (email, password, is_admin) VALUES (?, ?, ?)"
