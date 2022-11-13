@@ -2,9 +2,10 @@ FROM node:18 AS build
 
 WORKDIR /build
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN npm ci
+RUN yarn install --frozen-lockfile --production
 
 COPY tsconfig.json ./
 COPY tailwind.config.cjs ./
@@ -14,7 +15,10 @@ COPY src ./src
 COPY scripts ./scripts
 COPY public ./public
 
-RUN npm run build
+RUN yarn --cwd scripts && \
+    yarn --cwd scripts fetch-posts-notion
+
+RUN yarn build
 
 FROM node:18-alpine
 
@@ -22,8 +26,9 @@ WORKDIR /app
 
 COPY --from=build /build/dist /app
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN npm ci --omit=dev
+RUN yarn install --frozen-lockfile --production
 
 CMD ["node", "./server/entry.mjs"]

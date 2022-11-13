@@ -19,11 +19,10 @@
     "@astrojs/react": "^1.1.2",
     "@astrojs/tailwind": "^1.0.0",
     "@headlessui/react": "^1.7.3",
-    "@react-three/fiber": "^8.7.2",
-    "@react-three/postprocessing": "^2.6.2",
     "astro": "^1.6.7",
+    "@types/node-fetch": "^2.6.2",
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^7.6.2",
+    "better-sqlite3": "WiseLibs/better-sqlite3#pull/870/head",
     "canvas-confetti": "^1.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

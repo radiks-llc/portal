@@ -3,7 +3,7 @@ import crypto from "crypto";
 import bcrypt from "bcryptjs";
 
 const salt = bcrypt.genSaltSync(10);
-const db = new Database("radiks.db");
+const db = new Database(import.meta.env.DATABASE_URL);
 
 export const hashPassword = (password: string) => {
   return bcrypt.hashSync(password, salt);

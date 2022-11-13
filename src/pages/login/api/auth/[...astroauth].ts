@@ -8,15 +8,19 @@ export const all = AstroAuth({
   authProviders: [
     CredentialProvider({
       authorize: async ({ email, password }) => {
-        const user = getUserByEmail(email);
+        try {
+          const user = getUserByEmail(email);
 
-        if (!user) return null;
+          if (!user) return null;
 
-        if (bcrypt.compareSync(password, user.password)) {
-          return { id: user.id, email };
+          if (bcrypt.compareSync(password, user.password)) {
+            return { id: user.id, email };
+          }
+
+          return null;
+        } catch (e) {
+          console.log(e);
         }
-
-        return null;
       },
     }),
   ],

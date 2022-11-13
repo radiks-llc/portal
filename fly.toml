@@ -1,16 +1,16 @@
-# fly.toml file generated for radiks on 2022-11-08T18:59:32-03:30
+# fly.toml file generated for radiks-portal on 2022-11-13T10:54:13-03:30
 
-app = "radiks"
+app = "radiks-portal"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
-[build]
-  builder = "heroku/buildpacks:20"
-
 [env]
-  PORT = "8080"
+
+[mounts]
+  source="default"
+  destination="/mnt/default"
 
 [experimental]
   allowed_public_ports = []
@@ -18,7 +18,7 @@ processes = []
 
 [[services]]
   http_checks = []
-  internal_port = 8080
+  internal_port = 3000
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
