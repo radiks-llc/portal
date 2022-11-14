@@ -53,14 +53,12 @@ import Bulletin from "@ui/displays/Bulletin.astro";
         {
           pages.map(({ title, subtitle, slugLink, formattedCreatedTime }) => (
             <a href={slugLink}>
-              <div class="p-2">
-                <div class="text-xs gap-2 flex justify-between">
-                  <div>{subtitle}</div>
-                  <i>{formattedCreatedTime}</i>
-                </div>
-                <hr class="w-10 border-t-2 border-black" />
-                <b class="text-md">{title}</b>
+              <div class="text-xs gap-2 flex justify-between">
+                <div>{subtitle}</div>
+                <i>{formattedCreatedTime}</i>
               </div>
+              <hr class="w-10 border-t-2 border-black" />
+              <b class="text-md">{title}</b>
             </a>
           ))
         }

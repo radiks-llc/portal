@@ -11,20 +11,6 @@ import Confetti from "@ui/Confetti";
 const user = getUser({ server: Astro.request });
 const { slug } = Astro.params;
 
-let votes = null;
-if (Astro.request.method === "GET") {
-  if (typeof slug !== "string") throw new Error("Not a string.");
-
-  const voteList = getVotes(slug);
-
-  votes = [];
-
-  for (const vote of voteList) {
-    let prev = votes[vote.option] ?? 0;
-    votes[vote.option] = prev + 1;
-  }
-}
-
 let selectedOption = null;
 const request = Astro.request;
 if (Astro.request.method === "POST") {
@@ -43,6 +29,18 @@ if (Astro.request.method === "POST") {
   increaseVotes(slug, user.email, selection);
 }
 
+let votes = null;
+if (typeof slug !== "string") throw new Error("Not a string.");
+
+const voteList = getVotes(slug);
+
+votes = [];
+
+for (const vote of voteList) {
+  let prev = votes[vote.option] ?? 0;
+  votes[vote.option] = prev + 1;
+}
+
 const { title, subtitle, formattedCreatedTime, votePages, blocks } = pages.find(
   ({ slug: otherSlug }) => otherSlug === slug
 );
@@ -55,13 +53,13 @@ const { title, subtitle, formattedCreatedTime, votePages, blocks } = pages.find(
       selectedOption !== null && (
         <div class="my-5 p-5 flex flex-col justify-center items-center border border-amber-500">
           <div>
-            Option {selectedOption + 1} selected. Thank you for your submission.
+            Option {selectedOption} selected. Thank you for your submission.
           </div>
           <Confetti client:only="react" />
         </div>
       )
     }
-    <div class="flex justify-between">
+    <div class="flex flex-col my-4 sm:flex-row sm:my-0 justify-between">
       <div>The RadiKS Training Simulator System Blog</div>
       <h2 class="text-sm">
         <b>{formattedCreatedTime}</b>
