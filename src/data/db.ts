@@ -1,9 +1,11 @@
 import Database from "better-sqlite3";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
+import config from "src/config";
 
 const salt = bcrypt.genSaltSync(10);
-const db = new Database("radiks.db");
+
+const db = new Database(config.dbUrl);
 
 export const hashPassword = (password: string) => {
   return bcrypt.hashSync(password, salt);
@@ -105,11 +107,14 @@ export const ensureSchema = () => {
     )`
   ).run();
 
-  const password = import.meta.env.MITCH_PASS;
+  const password = config.mitchPass;
+  console.log(password);
 
   db.prepare(
     "INSERT OR IGNORE INTO users (email, password, is_admin) VALUES (?, ?, ?)"
   ).run("me@mitchellhynes.com", hashPassword(password), 1);
+
+  console.log("hello");
 };
 
 ensureSchema();

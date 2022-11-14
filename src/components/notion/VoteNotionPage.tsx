@@ -11,7 +11,7 @@ const NumberedListItem =
   ({ config }: DropedProps) => {
     if (config.block.notionType === "numbered_list_item") {
       const options = config.block.items.map(({ content: { text } }) =>
-        text.map(({ text }) => <div>{text.content}</div>)
+        text.map(({ text }, i) => <div key={i}>{text.content}</div>)
       );
       return (
         <div>
@@ -19,8 +19,8 @@ const NumberedListItem =
           {options.map((text) => {
             const index = getIndex();
             return (
-              <div className="my-4 sm:flex items-start">
-                {showVotes ? (
+              <div key={index} className="my-4 sm:flex items-start">
+                {showVotes && (
                   <input
                     className="m-2"
                     name="vote"
@@ -28,11 +28,10 @@ const NumberedListItem =
                     id={`${index}`}
                     type="radio"
                   ></input>
-                ) : (
-                  <div className="text-sm border-2 border-black px-1 sm:mr-4 w-28">
-                    {votes[index] ?? 0} votes
-                  </div>
                 )}
+                <div className="text-sm border-2 border-black px-1 sm:mr-4 w-32">
+                  {votes[index] ?? 0} votes
+                </div>
                 <label htmlFor={`${index}`}>{text}</label>
               </div>
             );

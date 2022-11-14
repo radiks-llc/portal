@@ -1,5 +1,6 @@
 ---
 import logo from "/radiks.svg";
+import chrimas from "../images/chrimas.gif";
 export interface Props {
   title: string;
   showLogin?: boolean;
@@ -7,6 +8,7 @@ export interface Props {
 
 const { title, showLogin = true } = Astro.props;
 import { getUser } from "@astro-auth/core";
+import Snow from "@ui/Snow";
 const user = getUser({ client: Astro });
 ---
 
@@ -30,41 +32,55 @@ const user = getUser({ client: Astro });
 />
 
 <body class="font-serif w-auto flex">
-  <div class="flex flex-col m-auto max-w-2xl px-4">
-    <div class="flex justify-between">
-      <a href="/"><img class="my-2 w-24" src={logo} /></a>
-      {
-        showLogin &&
-          (user ? (
-            <div class="my-auto flex gap-4">
-              Hello, Shareholder #{user.id}.
-              <a
-                href="/login"
-                class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
-              >
-                Visit profile.
-              </a>
-            </div>
-          ) : (
-            <div class="my-auto">
-              <a
-                href="/login/"
-                class="py-1 px-2 bg-gray-200 border-l-gray-500 border-b-gray-500 border-t-gray-100 border-r-gray-100 border-2 hover:bg-gray-300 active:bg-gray-400 active:border-l-gray-100 active:border-b-gray-100 active:border-t-gray-500 active:border-r-gray-500"
-              >
-                Shareholder Login
-              </a>
-            </div>
-          ))
-      }
+  <Snow client:only="react">
+    <div class="bg-white flex flex-col m-auto max-w-2xl px-4">
+      <div class="flex justify-between">
+        <a href="/" class="flex">
+          <img class="my-2 w-24" alt="The RadiKS Logo" src={logo} />
+          <img
+            class="my-2 w-24"
+            alt="An animated christmas tree"
+            src={chrimas}
+          />
+        </a>
+        {
+          showLogin &&
+            (user ? (
+              <div class="my-auto flex flex-col sm:flex-row gap-4">
+                Hello, Shareholder #{user.id}.
+                <a
+                  href="/login"
+                  class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+                >
+                  Visit profile.
+                </a>
+              </div>
+            ) : (
+              <div class="my-auto">
+                <a
+                  href="/login/"
+                  class="py-1 px-2 bg-gray-200 border-l-gray-500 border-b-gray-500 border-t-gray-100 border-r-gray-100 border-2 hover:bg-gray-300 active:bg-gray-400 active:border-l-gray-100 active:border-b-gray-100 active:border-t-gray-500 active:border-r-gray-500"
+                >
+                  Shareholder Login
+                </a>
+              </div>
+            ))
+        }
+      </div>
+      <div class="mt-4">
+        <slot />
+      </div>
+      <footer class="flex gap-4 py-6">
+        Copyright RadiKS 1993 ©
+        <a
+          class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+          href="/faq">FAQ</a
+        >
+        <a
+          class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+          href="https://discord.gg/zWKrbwHwBt">Join our Discord</a
+        >
+      </footer>
     </div>
-    <div class="mt-4">
-      <slot />
-    </div>
-    <footer>
-      <a
-        class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
-        href="/faq">FAQ</a
-      >
-    </footer>
-  </div>
+  </Snow>
 </body>

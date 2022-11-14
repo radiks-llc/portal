@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  radiks-portal:
+    image: ghcr.io/radiks-llc/portal:latest
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - "./data:/app/data"
+    environment:
+      - DATABASE_URL=file:/app/data/docker.db

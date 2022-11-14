@@ -49,13 +49,6 @@
   resolved "https://registry.yarnpkg.com/@astro-auth/types/-/types-1.0.2.tgz#a33f0f3a6991d29e46d4e218e2da3e4784622c91"
   integrity sha512-URe9Nf3UKLWYthFAV4ubnJXohJoTQZnfFntPkriXstmCV8brTE0+/77ZxumcR0CK3/7OlwYAt1HIPhF4LQWLow==
 
-"@astrojs/cloudflare@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@astrojs/cloudflare/-/cloudflare-4.0.1.tgz#0fcaa6c66a73df8cecad71e551620bc30a1cb78d"
-  integrity sha512-0tYqulZQyCbmFP3wg8arO1vqY44e+ye94DrxOzlN+pxxqylhbLi94Rz9Z1HzWeOTyrhpG4reyl4ffHlTYzXnng==
-  dependencies:
-    esbuild "^0.14.42"
-
 "@astrojs/compiler@^0.29.11", "@astrojs/compiler@^0.29.3":
   version "0.29.13"
   resolved "https://registry.yarnpkg.com/@astrojs/compiler/-/compiler-0.29.13.tgz#86910920301f90bc9eadaae65a88e2903e575fa1"
@@ -413,6 +406,11 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@emmetio/scanner/-/scanner-1.0.0.tgz#065b2af6233fe7474d44823e3deb89724af42b5f"
   integrity sha512-8HqW8EVqjnCmWXVpqAOZf+EGESdkR27odcMMMGefgKXtar00SoYNSryGv//TELI4T3QFsECo78p+0lmalk/CFA==
+
+"@erikwatson/snowfall@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@erikwatson/snowfall/-/snowfall-3.1.2.tgz#785d73471d3750931d194ed34648b79cdb9d1601"
+  integrity sha512-4XPrF0f6FFXmJv8BC5ZjVH8L90bGnaDocBVa/KCBtguJ4bvfGRK6PN8iOnIUFr7rStqfMPIHU3G/0Pn3L/LO8g==
 
 "@esbuild/android-arm@0.15.13":
   version "0.15.13"
@@ -1233,7 +1231,7 @@ ast-types@0.14.2:
   dependencies:
     tslib "^2.0.1"
 
-astro@^1.6.5:
+astro@^1.6.7:
   version "1.6.7"
   resolved "https://registry.yarnpkg.com/astro/-/astro-1.6.7.tgz#47b2dbf70034255cfcde5770b2203550fc02e426"
   integrity sha512-xx910blM5qfSMyesmVmuhXqKMIOa2WL/WTSfYv84pB9JocgtAfGKlmS1HZNqWd0h9YLreYbGRzXhbtv2Qfd8vw==
@@ -1542,9 +1540,9 @@ chownr@^1.1.1:
   integrity sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==
 
 ci-info@^3.3.1:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.5.0.tgz#bfac2a29263de4c829d806b1ab478e35091e171f"
-  integrity sha512-yH4RezKOGlOhxkmhbeNuC4eYZKAUsEaGtBuBzDDP1eFUKiccDWzBABxBfOx31IDwDIXMTxWuwAxUGModvkbuVw==
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.6.1.tgz#7594f1c95cb7fdfddee7af95a13af7dbc67afdcf"
+  integrity sha512-up5ggbaDqOqJ4UqLKZ2naVkyqSJQgJi5lwD6b6mM748ysrghDBX0bx/qJTUHzw7zu6Mq4gycviSF5hJnwceD8w==
 
 cli-boxes@^3.0.0:
   version "3.0.0"
@@ -1784,6 +1782,11 @@ dlv@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.3.tgz#5c198a8a11453596e751494d49874bc7732f2e79"
   integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
+
+dotenv@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 dset@^3.1.2:
   version "3.1.2"
@@ -2065,7 +2068,7 @@ esbuild-windows-arm64@0.15.13:
   resolved "https://registry.yarnpkg.com/esbuild-windows-arm64/-/esbuild-windows-arm64-0.15.13.tgz#4ffd01b6b2888603f1584a2fe96b1f6a6f2b3dd8"
   integrity sha512-3bv7tqntThQC9SWLRouMDmZnlOukBhOCTlkzNqzGCmrkCJI7io5LLjwJBOVY6kOUlIvdxbooNZwjtBvj+7uuVg==
 
-esbuild@^0.14.0, esbuild@^0.14.42, esbuild@^0.14.43:
+esbuild@^0.14.0, esbuild@^0.14.43:
   version "0.14.54"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.14.54.tgz#8b44dcf2b0f1a66fc22459943dccf477535e9aa2"
   integrity sha512-Cy9llcy8DvET5uznocPyqL3BFRrFXSVqbgpMJ9Wz8oVjZlh/zUSNbPRbov0VX7VxN2JH1Oa0uNxZ7eLRb62pJA==
@@ -4037,6 +4040,18 @@ react-dom@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-fast-compare@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
+  integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
+
+react-snowfall@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-snowfall/-/react-snowfall-1.2.1.tgz#68cab6a1d05aa7c3211bce96a3a97977ca7dc57f"
+  integrity sha512-d2UR3nDq3F0DJGaTfJ0QNbBo76UZHtT9wHFj+ePxAl4FgSxWBhxB/Bjn06f5iDBwhgwiZ7CZmv3lwfNvjo6a+w==
+  dependencies:
+    react-fast-compare "^3.2.0"
 
 react@^18.2.0:
   version "18.2.0"

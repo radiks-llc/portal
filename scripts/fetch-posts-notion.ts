@@ -210,7 +210,7 @@ const handleAttachment = async (url: string) => {
 
 export const getPages = async () => {
   const pages = await Promise.all((await fetchPages()).map(toNotionPage));
-  const isAttachment = /http(s?):\/\/.*\.(gif|png|mp4)/g;
+  const isAttachment = /http(s?):\/\/.*\.(gif|png)/g;
   const urls: string[] = [];
 
   const entries = (obj: object) => {
